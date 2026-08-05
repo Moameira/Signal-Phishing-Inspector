@@ -1,0 +1,93 @@
+#signal-badge {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 280px;
+  background: #171D27;
+  border: 1px solid #262E3C;
+  border-radius: 10px;
+  color: #E7E5DF;
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
+  font-size: 12px;
+  z-index: 999999;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  overflow: hidden;
+}
+
+#signal-badge.safe { border-color: #4F9B7E; }
+#signal-badge.caution { border-color: #D4A34C; }
+#signal-badge.danger { border-color: #C4544A; }
+
+.signal-badge-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border-bottom: 1px solid #262E3C;
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: 600;
+}
+
+.signal-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #6C8EF5;
+}
+
+.signal-title { flex: 1; }
+
+.signal-close {
+  background: none;
+  border: none;
+  color: #8A93A3;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.signal-score-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+}
+
+.signal-score {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+#signal-badge.safe .signal-score { color: #4F9B7E; }
+#signal-badge.caution .signal-score { color: #D4A34C; }
+#signal-badge.danger .signal-score { color: #C4544A; }
+
+.signal-verdict {
+  color: #8A93A3;
+  font-size: 11px;
+}
+
+.signal-list {
+  max-height: 180px;
+  overflow-y: auto;
+  border-top: 1px solid #262E3C;
+}
+
+.signal-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid #1D2430;
+  line-height: 1.4;
+}
+
+.signal-row.empty {
+  color: #8A93A3;
+  justify-content: center;
+}
+
+.signal-row .w {
+  flex-shrink: 0;
+  color: #8A93A3;
+}
