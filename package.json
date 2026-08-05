@@ -4,6 +4,7 @@
   "private": true,
   "description": "A weighted heuristic engine that scores emails for phishing risk.",
   "scripts": {
+    "evaluate": "node evaluate.js",
     "test": "node test-engine.js"
   }
 }

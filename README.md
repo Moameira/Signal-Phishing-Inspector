@@ -27,9 +27,10 @@ If you have Node.js installed:
 
 ```bash
 npm test
+npm run evaluate
 ```
 
-This runs a few fast checks against obvious phishing and legitimate examples.
+`npm test` runs fast sanity checks. `npm run evaluate` scores the labeled examples in `data/sample-emails.json` and reports false positives/false negatives.
 
 ## Manual Gmail testing
 

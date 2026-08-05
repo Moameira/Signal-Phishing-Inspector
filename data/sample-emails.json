@@ -1,0 +1,62 @@
+[
+  {
+    "id": "phish-paypal-ip-link",
+    "label": "phishing",
+    "email": {
+      "from": "\"PayPal Support\" <security@paypa1-verify.xyz>",
+      "replyTo": "noreply@some-other-domain.ru",
+      "subject": "URGENT: Your account will be closed - verify your account now",
+      "body": "Dear Customer, we detected unusual activity. Please confirm your identity within 24 hours by clicking here: http://192.168.10.5/login and enter your password to avoid suspension."
+    }
+  },
+  {
+    "id": "phish-bank-free-email",
+    "label": "phishing",
+    "email": {
+      "from": "\"Chase Security\" <chasealerts@gmail.com>",
+      "replyTo": "",
+      "subject": "Security alert: unusual activity",
+      "body": "Dear account holder, confirm your identity and update your banking details within 24 hours to avoid suspension."
+    }
+  },
+  {
+    "id": "phish-shortened-login-link",
+    "label": "phishing",
+    "email": {
+      "from": "\"Microsoft 365\" <billing@microsoft-support-login.info>",
+      "replyTo": "helpdesk@another-domain.info",
+      "subject": "Final notice: update your payment",
+      "body": "Your account will be closed. Login to your account here: https://bit.ly/secure-portal and confirm your password."
+    }
+  },
+  {
+    "id": "legit-team-notes",
+    "label": "legitimate",
+    "email": {
+      "from": "\"Sarah from the team\" <sarah@mycompany.com>",
+      "replyTo": "sarah@mycompany.com",
+      "subject": "Notes from our call today",
+      "body": "Hi! Thanks for the great conversation earlier. I attached the summary doc, let me know if you have questions."
+    }
+  },
+  {
+    "id": "legit-receipt",
+    "label": "legitimate",
+    "email": {
+      "from": "\"Amazon.com\" <shipment-tracking@amazon.com>",
+      "replyTo": "shipment-tracking@amazon.com",
+      "subject": "Your package was delivered",
+      "body": "Your recent order was delivered today. You can view order details in your account."
+    }
+  },
+  {
+    "id": "legit-password-reset",
+    "label": "legitimate",
+    "email": {
+      "from": "\"GitHub\" <noreply@github.com>",
+      "replyTo": "noreply@github.com",
+      "subject": "Reset your password",
+      "body": "We received a request to reset your password. If you did not request this, you can ignore this email."
+    }
+  }
+]
