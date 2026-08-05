@@ -2,12 +2,19 @@
 
 A weighted heuristic engine that scores emails for phishing risk (0–100%) with a plain-English explanation of every signal it found — not just a black-box number.
 
+## Status
+
+Early testing build. The demo works locally, the engine has basic test coverage, and the Chrome extension is ready for manual Gmail validation.
+
 ## What's in here
 
 - **`engine.js`** — the detection brain. Pure JS, no dependencies, works in browser or Node. This is what you'd swap for a trained ML model later.
 - **`demo.html`** — paste an email's From/Subject/Body, see the live score. Open this directly in a browser to test the engine.
 - **`manifest.json`, `content.js`, `content.css`, `popup.html`** — a Chrome extension (Manifest V3) that reads whatever email is currently open in Gmail and shows a floating risk badge, bottom-right.
 - **`test-engine.js`** — a tiny no-dependency sanity test for the scoring engine.
+- **`TESTING.md`** — a manual Gmail testing log.
+- **`PRIVACY.md`** — a plain-English privacy note.
+- **`RELEASE_CHECKLIST.md`** — a short checklist for demos and future Chrome Web Store prep.
 
 ## Try the demo right now
 
@@ -35,6 +42,10 @@ npm run evaluate
 ## Manual Gmail testing
 
 After loading the unpacked extension in Chrome, use `TESTING.md` to record whether the badge appears, updates between emails, and scores messages reasonably.
+
+## Privacy
+
+Signal runs locally in your browser and does not send email content or scan results to a server. See `PRIVACY.md`.
 
 ## Known limitations
 
