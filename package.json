@@ -1,0 +1,9 @@
+{
+  "name": "signal-phishing-inspector",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A weighted heuristic engine that scores emails for phishing risk.",
+  "scripts": {
+    "test": "node test-engine.js"
+  }
+}

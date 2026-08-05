@@ -14,9 +14,23 @@
  */
 
 const SELECTORS = {
-  senderSpan: 'span.gD',        // has [email] and [name] attributes
-  subject: 'h2.hP',
-  body: 'div.a3s.aiL'
+  // Gmail changes class names over time. Keep several commonly-observed
+  // fallbacks so one stale selector does not make the extension go blind.
+  sender: [
+    'span.gD[email]',
+    'span[email][name]',
+    '[role="main"] span[email]'
+  ],
+  subject: [
+    'h2.hP',
+    '[data-thread-perm-id] h2',
+    'h2'
+  ],
+  body: [
+    'div.a3s.aiL',
+    'div.a3s',
+    '[role="listitem"] div[dir="ltr"]'
+  ]
 };
 
 let lastSignature = null;
@@ -45,22 +59,54 @@ function ensureBadge() {
   return badgeEl;
 }
 
-function readOpenEmail() {
-  const subjectEl = document.querySelector(SELECTORS.subject);
-  const senderEls = document.querySelectorAll(SELECTORS.senderSpan);
-  const bodyEls = document.querySelectorAll(SELECTORS.body);
+function firstText(selectors) {
+  for (const selector of selectors) {
+    const el = document.querySelector(selector);
+    const text = el?.textContent?.trim();
+    if (text) return text;
+  }
+  return '';
+}
 
-  if (!subjectEl || senderEls.length === 0 || bodyEls.length === 0) return null;
+function allElements(selectors) {
+  const seen = new Set();
+  const elements = [];
+
+  for (const selector of selectors) {
+    for (const el of document.querySelectorAll(selector)) {
+      if (!seen.has(el)) {
+        seen.add(el);
+        elements.push(el);
+      }
+    }
+  }
+
+  return elements;
+}
+
+function visibleText(el) {
+  if (!el) return '';
+  const style = window.getComputedStyle(el);
+  if (style.display === 'none' || style.visibility === 'hidden') return '';
+  return (el.innerText || el.textContent || '').trim();
+}
+
+function readOpenEmail() {
+  const subject = firstText(SELECTORS.subject);
+  const senderEls = allElements(SELECTORS.sender);
+  const bodyEls = allElements(SELECTORS.body)
+    .filter(el => visibleText(el).length > 0);
+
+  if (!subject || senderEls.length === 0 || bodyEls.length === 0) return null;
 
   // Take the last message in the thread (the one most likely expanded/read)
   const lastSender = senderEls[senderEls.length - 1];
   const lastBody = bodyEls[bodyEls.length - 1];
 
-  const name = lastSender.getAttribute('name') || '';
-  const email = lastSender.getAttribute('email') || '';
-  const from = `"${name}" <${email}>`;
-  const subject = subjectEl.textContent || '';
-  const body = lastBody.textContent || '';
+  const name = lastSender.getAttribute('name') || visibleText(lastSender);
+  const email = lastSender.getAttribute('email') || lastSender.getAttribute('data-hovercard-id') || '';
+  const from = email ? `"${name}" <${email}>` : name;
+  const body = visibleText(lastBody);
 
   return { from, replyTo: '', subject, body };
 }
@@ -77,7 +123,15 @@ function updateBadge() {
     return;
   }
 
-  const signature = email.from + email.subject;
+  if (!window.PhishingEngine?.analyzeEmail) {
+    badge.querySelector('.signal-score').textContent = '--';
+    badge.querySelector('.signal-verdict').textContent = 'Scanner engine unavailable';
+    badge.querySelector('.signal-list').innerHTML = '';
+    badge.className = 'caution';
+    return;
+  }
+
+  const signature = [email.from, email.subject, email.body.slice(0, 250)].join('\n');
   if (signature === lastSignature) return; // avoid re-render spam
   lastSignature = signature;
 
