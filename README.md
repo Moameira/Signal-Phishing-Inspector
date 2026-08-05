@@ -31,6 +31,10 @@ npm test
 
 This runs a few fast checks against obvious phishing and legitimate examples.
 
+## Manual Gmail testing
+
+After loading the unpacked extension in Chrome, use `TESTING.md` to record whether the badge appears, updates between emails, and scores messages reasonably.
+
 ## Known limitations
 
 1. **Gmail's DOM selectors are fragile.** `content.js` uses several fallback selectors, but Gmail changes its markup without notice. If the badge stops updating, right-click the subject line in Gmail → Inspect → find the new class names → update `SELECTORS` in `content.js`.
